@@ -1,7 +1,7 @@
 [
 	"Spray_DMC_Hud_Enabled",
 	"CHECKBOX",
-	["Enable Detailed Magazine Counter", "Show or hide the magazine counter HUD."],
+	["Enable", "Show or hide the magazine counter HUD."],
 	["Detailed Magazine Counter"],
 	true,
 	0,
@@ -19,6 +19,20 @@
 	0,
 	{
 		
+	}
+] call CBA_fnc_addSetting;
+
+[
+	"Spray_DMC_Hud_IncludeCurrMag",
+	"LIST",
+	["Include loaded magazine", "Include currently loaded magazine in the count."],
+	["Detailed Magazine Counter"],
+	[[1, 0, 2], ["Single shot magazine only", "Disabled", "Enabled"], 0],
+	0,
+	{
+		if (hasInterface && {!isNull player}) then {
+			[player, currentWeapon player, currentMuzzle player] call Spray_DMC_fnc_RefreshMan;
+		};
 	}
 ] call CBA_fnc_addSetting;
 

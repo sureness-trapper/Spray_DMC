@@ -10,13 +10,26 @@ uiNamespace setVariable ["Spray_DMC_Hud_Fadeout_Time", (time + _fadeoutDelay)];
 _hudCtrl ctrlSetFade 0;
 _hudCtrl ctrlCommit 0;
 
-private _objMags = magazines _object;
+private _magazineData = magazinesAmmoFull _object;
+private _includeCurrMag = ["Spray_DMC_Hud_IncludeCurrMag"] call CBA_settings_fnc_get;
+private _countedMagazineData = _magazineData select {
+    private _isLoaded = _x # 2;
+    !_isLoaded || {
+        _includeCurrMag == 2 || {
+            _includeCurrMag == 1 && {
+                getNumber (configFile >> "CfgMagazines" >> (_x # 0) >> "count") == 1
+            }
+        }
+    }
+};
+private _objMags = _countedMagazineData apply {_x # 0};
 private _mags = compatibleMagazines [_weap, _muzzle] arrayIntersect _objMags;
 private _str = "";
 if (count _mags > 1) then {
     {
         private _y = _x;
-        _str = _str + format ["%1 |%2<br/>", getText (configFile >> "CfgMagazines" >> _x >> "displayName"), str ({_y == _x} count _objMags)];
+        private _magCount = {_x # 0 == _y} count _countedMagazineData;
+        _str = _str + format ["%1 |%2<br/>", getText (configFile >> "CfgMagazines" >> _x >> "displayName"), str _magCount];
     } forEach _mags;
     _hudCtrl ctrlSetStructuredText parseText _str;
 } else {
