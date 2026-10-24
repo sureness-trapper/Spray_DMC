@@ -5,7 +5,7 @@ class CfgPatches {
         weapons[] = {};
         magazines[] = {};
         requiredVersion = 0.100000;
-        requiredAddons[] = {"A3_UI_F"};
+        requiredAddons[] = {"A3_UI_F", "cba_main"};
     };
 };
 class CfgFunctions {
@@ -14,8 +14,10 @@ class CfgFunctions {
             file = "Spray_DMC\functions";
             class RefreshMan {
             };
+            class PreInit {
+                preInit = 1;
+            };
             class Init {
-                postInit = 1;
             };
         };
     };
