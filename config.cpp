@@ -14,6 +14,12 @@ class CfgFunctions {
             file = "Spray_DMC\functions";
             class RefreshMan {
             };
+            class RefreshVehicle {
+            };
+            class RefreshCurrent {
+            };
+            class SetVehicleEventHandlers {
+            };
             class PreInit {
                 preInit = 1;
             };

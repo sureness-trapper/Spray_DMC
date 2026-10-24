@@ -31,11 +31,11 @@
 	0,
 	{
 		if (hasInterface && {!isNull player}) then {
-			[player, currentWeapon player, currentMuzzle player] call Spray_DMC_fnc_RefreshMan;
+			[] call Spray_DMC_fnc_RefreshCurrent;
 		};
 	}
 ] call CBA_fnc_addSetting;
 
 ["Detailed Magazine Counter", "Spray_DMC_Hud_RefreshKey", ["Display magazine counter", "Manually show magazine counter"], {
-    [player, currentWeapon player, currentMuzzle player] call Spray_DMC_fnc_RefreshMan;
+    [] call Spray_DMC_fnc_RefreshCurrent;
 }, ""] call CBA_fnc_addKeybind;
