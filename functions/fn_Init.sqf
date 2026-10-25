@@ -57,7 +57,7 @@ if (missionNamespace getVariable ["Spray_DMC_TeamSwitch_EH", -1] < 0) then {
 		};
 	};
 	private _getOutEH = {
-		params ["_vehicle", "_unit", "_role"];
+		params ["_unit", "_role", "_vehicle"];
 		[_vehicle, false] call Spray_DMC_fnc_SetVehicleEventHandlers;
 		[] spawn {
 			uiSleep 0;
