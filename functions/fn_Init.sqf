@@ -39,36 +39,23 @@ if (missionNamespace getVariable ["Spray_DMC_TeamSwitch_EH", -1] < 0) then {
 	};
 
 	private _refreshEH = {
-		[] spawn {
-			uiSleep 0;
-			if (!hasInterface || {isNull player} || {
-				!(["Spray_DMC_Hud_Enabled"] call CBA_settings_fnc_get)
-			}) exitWith {};
-			[] call Spray_DMC_fnc_RefreshCurrent;
-		};
+		params ["_unit"];
+		[_unit] call Spray_DMC_fnc_RefreshCurrent;
 	};
 	private _getInEH = {
 		params ["_unit", "_role", "_vehicle"];
-		[_vehicle] spawn {
-			params ["_vehicle"];
-			uiSleep 0;
-			[_vehicle, true] call Spray_DMC_fnc_SetVehicleEventHandlers;
-			[] call Spray_DMC_fnc_RefreshCurrent;
-		};
+		[_vehicle, true] call Spray_DMC_fnc_SetVehicleEventHandlers;
+		[_vehicle] call Spray_DMC_fnc_RefreshCurrent;
+		
 	};
 	private _getOutEH = {
 		params ["_unit", "_role", "_vehicle"];
 		[_vehicle, false] call Spray_DMC_fnc_SetVehicleEventHandlers;
-		[] spawn {
-			uiSleep 0;
-			[] call Spray_DMC_fnc_RefreshCurrent;
-		};
+		[_unit] call Spray_DMC_fnc_RefreshCurrent;
 	};
 	private _seatSwitchedEH = {
-		[] spawn {
-			uiSleep 0;
-			[] call Spray_DMC_fnc_RefreshCurrent;
-		};
+		params ["_unit1", "_unit2", "_vehicle"];
+		[_vehicle] call Spray_DMC_fnc_RefreshCurrent;
 	};
 
 	if (_handlerUnit != player) then {
@@ -85,15 +72,15 @@ if (missionNamespace getVariable ["Spray_DMC_TeamSwitch_EH", -1] < 0) then {
 			];
 		};
 
-		private _weaponEH = player addEventHandler ["WeaponChanged", _refreshEH];
-		private _reloadEH = player addEventHandler ["Reloaded", _refreshEH];
+		private _weaponEHId = player addEventHandler ["WeaponChanged", _refreshEH];
+		private _reloadEHId = player addEventHandler ["Reloaded", _refreshEH];
 		private _getInEHId = player addEventHandler ["GetInMan", _getInEH];
 		private _getOutEHId = player addEventHandler ["GetOutMan", _getOutEH];
 		private _seatSwitchedEHId = player addEventHandler ["SeatSwitchedMan", _seatSwitchedEH];
 		uiNamespace setVariable ["Spray_DMC_Hud_EventHandlers", [
 			player,
-			_weaponEH,
-			_reloadEH,
+			_weaponEHId,
+			_reloadEHId,
 			_getInEHId,
 			_getOutEHId,
 			_seatSwitchedEHId

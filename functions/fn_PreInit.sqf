@@ -18,8 +18,8 @@
 	[0, 60, 5],
 	0,
 	{
-		if (hasInterface && {!isNull player}) then {
-			[] call Spray_DMC_fnc_RefreshCurrent;
+		if (hasInterface && {!isNull vehicle player}) then {
+			[vehicle player] call Spray_DMC_fnc_RefreshCurrent;
 		};
 	}
 ] call CBA_fnc_addSetting;
@@ -32,23 +32,28 @@
 	[[1, 0, 2], ["Single shot magazine only", "Disabled", "Enabled"], 0],
 	0,
 	{
+		if (hasInterface && {!isNull vehicle player}) then {
+			[vehicle player] call Spray_DMC_fnc_RefreshCurrent;
+		};
 	}
 ] call CBA_fnc_addSetting;
 
 [
 	"Spray_DMC_Hud_AmmoCounter",
 	"CHECKBOX",
-	["Vehicle - % of ammo left per type", "Show remaining rounds as a percentage for each magazine type. Loaded magazines always included."],
+	["% of ammo left per type", "Show remaining rounds as a percentage for each magazine type. Loaded magazines included if the count is."],
 	["Detailed Magazine Counter"],
 	true,
 	0,
 	{
-		if (hasInterface && {!isNull player}) then {
-			[] call Spray_DMC_fnc_RefreshCurrent;
+		if (hasInterface && {!isNull vehicle player}) then {
+			[vehicle player] call Spray_DMC_fnc_RefreshCurrent;
 		};
 	}
 ] call CBA_fnc_addSetting;
 
 ["Detailed Magazine Counter", "Spray_DMC_Hud_RefreshKey", ["Display magazine counter", "Manually show magazine counter"], {
-    [] call Spray_DMC_fnc_RefreshCurrent;
+	if (hasInterface && {!isNull vehicle player}) then {
+		[vehicle player] call Spray_DMC_fnc_RefreshCurrent;
+	};
 }, ""] call CBA_fnc_addKeybind;

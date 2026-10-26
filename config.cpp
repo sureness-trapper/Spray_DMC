@@ -12,9 +12,7 @@ class CfgFunctions {
     class Spray_DMC {
         class Spray_DMC {
             file = "Spray_DMC\functions";
-            class RefreshMan {
-            };
-            class RefreshVehicle {
+            class Refresh {
             };
             class RefreshCurrent {
             };
